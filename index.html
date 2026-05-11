@@ -1,82 +1,300 @@
-<!DOCTYPE html>
-<html lang="so">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="CC-RCpjy-o9Ck9xxye5ggKPKcIdCvOy0YXffV_Oa1ZE" />
-    <title>Teins Company Shop Afgooye</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-900">
+import { useState, useEffect } from "react";
 
-    <nav class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="font-black text-emerald-700 text-xl leading-none uppercase">
-                Teins Company<br><span class="text-gray-900 text-sm">Shop Afgooye</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-semibold text-sm text-gray-600">
-                <a href="#" class="hover:text-emerald-600">Hoyga</a>
-                <a href="#" class="hover:text-emerald-600">Alaabta</a>
-                <a href="#" class="hover:text-emerald-600">Nagu Saabsan</a>
-            </div>
-            <button class="bg-emerald-600 text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-emerald-700 transition">Nala Xiriir</button>
+// Sawirrada (Base64) - Waxaan u daayay sidoodii
+const IMG_CORDYCEPS = "data:image/webp;base64,UklGRgwFAABXRUJQVlA4IAAFAADQIACdASrIAMgAPrVWpU8nJCM2o3HJitAWiWdu4XEw83ZnKTHVfSYrEzBn33i8OCz8KyzEI0w9u5fCWx4yDkqhKZXdMrLqBGep7k2NkXek3IUy7LeQCmF11WwQ3oFV9PAvL57+hbWAlUxB5CMhqiLC7Gpyk1kIT05poa3D27elsplZvQQsg6llznQruZmAgN0ECIx++fJMJZDoVl9og6raz3hWOVNNMPDi2JDPSTTk3NlEZX0TI1XIdRQAnCNgbdJB0pwsleMdVDqb5FfHQQGkyYxj/DUPd8VX5iOyOOTC7c+SQREDZmp+y6fcmAsHjeqQegRpozAAJ5tq3Il43s+ggRznaZJROMQfl8ApiDuAAP7+U3SPD3fkPASVxh81z+ByIXZNwCzFVHvNwB6kOqlKGtsP+Q0Tj9wBUAuF2ACYU09lLDVSYDcwHUiXEytAWM6JtubwiKfxM+t12b7mNE1QlwoeCcQxtxfEjkVzU3EourLIveZ1Hu5ysmbtVP/PWd/F7+t9sSwngMhiZaM4tTIzTdFlC/mJ4RQ9obhXqBufk+05VD17YAmRdpYfYjhXIPua/MTdCuCW8aK3+hzUYJGMyc2COdth3EMOoeMYiGxy+poKHLtRhc88S/e7jmsRMOkIu1GZxXLs8VkqFUTvhB1IscMJ1Ysqx5hASmFZcmxemjW1imbR5KP9UEPy9Fwdancs/oNY9QOWUcA1L/rsZ0014wSmZANsXgXOnvv5X24pEzvhf6wzMlSuoffF9GBl6OGTfZZop3Su+Mjg9oJZ0PwmQi0hknOb+GKFV3wcoPls3Oqz6MeQCqwIkRrEqm82Xr4M14+lBLblkOsPmwPM+Irnak9z4FGwD5WmDe0mFyaMeFt23qtc7PRwKAUmHOknGkwmSJurTAOQMezw9YDr3YBlZz+C0/YP7IkabuPFyS6GDh+UOiKNNoNdwB1ITw+dWHee1zIsVuVAulswblZdqaJczo9KdyOirjVA/HjFhbs64uqIpw/1v0Nnk6cz4Djz+mnrxMbpib6ZdVU17krcAuHhWrwpo0G/ZQSspJVJ/GIJzuXm+K8XMqd6mM2QBLpg1Aa4MXzvT/4lsx/CosmhTh5bQFYY4OoNs76bCf7pjtEAW85Nc2FIyGcO/GNdHSbYDDHVW6Y0fZBnodFaWCjwQ4qafj/5oju2KsEf4KfyoL3q17bNxKvvO0qns2xt5+1NH6zSwd7ddZ8XO2FS4WthvMh6I5qk5tlLxRCSqdL2EZmP8dhaB9O5M03KqdGb1B/JUwQIorg33HeBN4NznUG38DFE0X1BBrl3L5kYRGCrhhcClSGBSXorMhz46gqCVHw0z1fOz7/FJgV2MVDWwK3THpz3Vn4MRVl/uPCFlVNl+MJF93/x8R7Tsa6IuTUmoiSuHAChnxFjF2BrKpjSThfOURN9omBVinx7SXmqQRTfnYFAbBU2aDYoDDzDlWxTBZpbxz44mHdyZ+SJ1Gk6DQF3eAV2WeOlAnXpL6Fr1xdOy1juRl16RlMPANXJR89FkS1u1KVWI6yf+Gu/2I72LIMS2fPk888HytDi7DWUS626AkXIPFIc4uw7zexx3wdBewfhCDClKBzJ5Ri63sIcNIAGt1Yoh80VolxQTsuUGrgj7dgiuAMw2XVzJx0J2vQH5r6nOP0/YN2vvUPUeRWFViC8lADotWV1PcdEy0GvBYAAAAAAAA==";
+const IMG_ZINC = "data:image/webp;base64,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";
+const IMG_CHITOSAN = "data:image/webp;base64,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";
+const IMG_LIPIDTEA = "data:image/webp;base64,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";
+const IMG_SUPERCALCIUM = "data:image/webp;base64,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";
+const IMG_HIGHCALCIUM = "data:image/webp;base64,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";
+const IMG_AIRIZ = "data:image/webp;base64,UklGRrwCAABXRUJQVlA4ILACAADwFACdASqFAMgAPrVaqE8nJaQiI5dooOAWiWlu5KgXKp0oUuYc9PYHFX94QFVXGiRQUEkUFBJFBQSRQUEkT4nwQebLjN6jMxheLKxsTWvGd4AskTsvGDcviTExsD5hQQnx2oAnBN3om/mgoRT4XL5zxr+Bv4HyS0wmuYVCEn/O9z5kmu8jpca+9hFYRHsq1Itm08ALGSgzGqJVgnmxVgoJIoKCSKCgkigoJIoKCSJ7AAD+/vnClwALi5az0CpCZMsTbiozR54cphIMRkgQnIDuVHMMTiDEi47akDeAhzPp5M/EaeMeRTbcfsG8u16+TxkJo2/qnfw2speiVD8cRblSXkk1ExmPUmXk5pByTFGU/DKxgkZIam6R1tAlrnqmM6Nnxtab6c6KvyY/Sx3KW1P7dV+6nHqtY+PGhc+7biYFSrfFhjebKCI4iAnnLUG9UMnDcWZPktQ6OtdCTKs8sL2ysQQVAemxbCOzCAJM+tLRHHoXRUAVsiA6DF0wf/k++8FPQCpebLRRSpFwbTIFYhuE4tai3hzbUbmFmd5lb3h3tNgfqCzfL4C/90UwaE3sqStfnBg4QB4YSkPTFzxTOCslSq2YfPqKBj5MpelbtQRa1TN4/D/7y3Yv/AOfoWlruO3kILddNl090DV6CO4eHkv7Yc/LZVlZiW7h8mtRCxUgSaFz+v+fd7DA5mnJb5Xfo8wh3P5E/m2at3mpxG+ofWlS2Inv+uIsNxgOVoWpK8PSqUzIxgmHj161U6lXKoqwKuIJCl8bfc1XxTKD7edfYZOgNGW85+4pRelJOT6mpJLAuoPaQtsUK0P02VdVeD0TvnFFZuWBhsNxdmZqbjBxUE7jEYHgN3u5Jaf5y2B/YApaxhHo2GhPLOllH1F73OyXt8ik5sGkvqaMIYVQAAAAAAAA";
+const IMG_ORECARE = "data:image/webp;base64,UklGRsIFAABXRUJQVlA4ILYFAAAQIgCdASrIAMgAPrVaqU8nJSQiI1h42OAWiWdu4XNBEMEyqnMmf154DTlqeY7T5xxUqkfg+oLa6NTJWz886HXQM/eCZ+6Zr9Wfqz9Wfqz9U/TOmMSF8QEiAjoyUWiqGUMfuFkXetmoxiy+fC/MQMyW/+HETwX3u34svn2jtCVJHHigXqVZYRKFRRaoWMIKKw7aQ87WJ0tCMaIBp+3VNKnz/MPQcjcaCr2HJdTRMbCUqYsGomty5oZDcEIlAWuvUAcEgfLZXCF6OUDsuR+fen2t0a8wn1sJhROaxEmqGNvwMT+F0pSKG2anMyY9S+OLiPxj7ykC13X0kXsew8IgJDWUbOzkJJmv1Z+rRv2ICRASICRASICRASH6gAD+/tUCPMABmi0h7/ZM8v526T4F0ipCCPmO9+3Cs+KNFH6H2xWzeSU14Ks6Pv4u8hrGMyWn00+GJdCnzOVOEQYumqIKde0SI9DlW96Ke4YNKDt6Qs/IUhQyN7UBPw9qFlo2ljQ6tKqW6AnIcPz4wphH10RAczyaWVx04GMi4JVhVAfzTV8qYkUfrUfRy/FVCof2Rbgb+ogpCxA1oXdrLCqbCI1y+I1Q6lBbTrFcEqHKPg/4+6g3EWWl+03lyU0UC9h2If+++ccOYEISHIO51CUGAL52pP2HchC/L5xdxIEwTRicPrt+wUqFYr8WzDi2hcniDwVPX4X+T7MR/vIdzs1mnts25S5t9Fz9ir4l0VN7C4pVkej0C+3o8q5ZuitzASs8B+6xpFwMCkaXpXreqWi1EXFHhgcJQtuwoUE421yGSMuZF0fgHiqmbF1yNjxvrnAcR0JhNKHRtah/d5+O0pZHuoICh+vyccWfgyV2AgqMQDP7+13dN0unI75/XWRIzkcjNGibsbud+WTALUm+AMDB8Q10W3wRx6P80rYXq8J0fwmgmj7vIA0qUKyPCpcFu9IbLDA84zk/yTK0qHo+ROeZG+z3PiFG6W2zUUUfmGXhHWpJoSTw62y+AIxYyfhrl2qe6HODTvs/jmRe2BqNe1mRFyLvgcs7ZB/KtbWQYKEfYD5zOav6UTwwiVyf2HKKowVGnzEOx+z3M3S9L0OxFoy3ctESeIJgZcoANPC9M5yJBFsgb5g2myz264R93/LMqEvG/R78aG3g4a3U5h0jRzG+u8Bdomjzb1JT1+orVYvHHfxQfPoQvWw7gS0Dz8YcUK2zLEL4QB8YULi5tXGQv9cISSVVDkfQcatRT4r1uqADPntpY77FS7ota0DIV/fbHLh3LvQltkllFRXmXJYHBTR5jWz8jfY4UXwSz7P1M/crRurKPHKdhQ+vKo6XfS5VrSKSqUdkeVLFuCOvKT4d553WcDA6b7ZoC8nXPNBR78Y5SHtX9Im6ZtKHq1kcuGwDioMgg6C8SLYRL/8lZxJ3TwF8zjQGPndHjBgzg2D4ousxHtonntHZk84JdCH0yu7LhzeLDn1WTcTLCPgOZv6deXck8nsi0V/84NM0nZy+QWBXI+SNo/enzehqVu+6kcMSEiIVfhHMptsXxST+YMH3gaKDz+C0nBYixWcfK2Md/iPKwJ+UeQo7CRNu3gJGhJOmKmI+ld0OnQXOkf6hd1GwqA33a/2rpW1oFpGWNRcZ43g3/IUPu26AKvwMLuP3k2Lif5AixjsMnsdnDbBnmXfsGOaffEkc+dhZJrPD6tp6fZBEdkfVyWqplisXoNlMWw3ZPuBt84uXzuUBa9RtQXd+Rr5fOpiogi4onI6cTTvAPRW9fl4fqkJtX6oEdVYdwAdjTv4zqw5u+z+nt1SIKA5JlLIYWywzaZaU1wnzIds7YIpHYCDLJzICE+YoEYFYlOZk6AJhL/SzU2qkT1gUeVLVIwc4uSjp8uhgHzD+YmHlTY+rrbOSEhHb+vmqvh5HNWakRhX1T5tEINcG1sqihwggTlVL1Z5czEI4ZAAAAAAA==";
+const IMG_ABOUTIMG = "data:image/webp;base64,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";
+
+const products = [
+  { id: 1, name: "Tiens Cordyceps Capsules", price: 45, category: "supplements", badge: "Immune Support", desc: "Waxaa caawisaa xoojinta difaaca jirka iyo kordhinta tamarta iyo adkaysiga sanbabada.", color: "#e8f5e9", img: IMG_CORDYCEPS },
+  { id: 2, name: "Tiens Zinc Capsules", price: 13, category: "supplements", badge: "Immunity", desc: "Zinc-tu waxay muhiim u tahay difaaca jidhka, koritaanka, iyo aragtida indhaha.", color: "#e3f2fd", img: IMG_ZINC },
+  { id: 3, name: "Tiens Chitosan Capsules", price: 36, category: "supplements", badge: "Detox & Weight", desc: "Waxay caawisaa nadiifinta sunta jirka iyo xakamynta miisaanka adoo nuugaya dufanka.", color: "#fce4ec", img: IMG_CHITOSAN },
+  { id: 4, name: "Airiz Active Oxygen", price: 6, category: "wellness", badge: "Personal Care", desc: "Xafaayadaha haweenka oo leh oxygen firfircoon iyo ions taban oo caawiya fayo-qabka.", color: "#f3e5f5", img: IMG_AIRIZ },
+  { id: 5, name: "Super Calcium Children", price: 23, category: "wellness", badge: "Kids Health", desc: "Wuxuu u habaysan yahay carruurta si uu u xoojiyo lafaha iyo ilkaha xilliga koritaanka.", color: "#fff8e1", img: IMG_SUPERCALCIUM },
+  { id: 6, name: "High Calcium Powder II", price: 28, category: "wellness", badge: "Bone Health", desc: "Kaalsiyam tayo sare leh oo loogu talagalay dadka waaweyn si ay u ilaaliyaan cufnaanta lafaha.", color: "#e0f7fa", img: IMG_HIGHCALCIUM },
+  { id: 7, name: "Lipid Metabolic Tea", price: 23, category: "wellness", badge: "Metabolism", desc: "Shaahani wuxu gacan ka geystaa nidaaminta dufanka jidhka iyo hagaajinta shiidka cuntada.", color: "#e8f5e9", img: IMG_LIPIDTEA },
+  { id: 8, name: "Orecare Herbal Toothpaste", price: 9, category: "wellness", badge: "Oral Health", desc: "Daawada cadayga ee geedaha Shiinaha oo daryeesha ciridka kana hortagta suuska.", color: "#e8eaf6", img: IMG_ORECARE },
+];
+
+const membershipPlans = [
+  { name: "Bronze", price: 110, popular: false, color: "#cd7f32", bg: "#fff8f0", features: ["Qiimo dhimis 5%", "Taageero macaamiisha", "Alaab asali ah", "Warbaahinta caafimaadka"], emoji: "🥉" },
+  { name: "Silver", price: 220, popular: true, color: "#6b7280", bg: "#f8faff", features: ["Qiimo dhimis 10%", "Baaritaan sanadle ah", "Taageero degdeg ah", "Warbaahinta VIP"], emoji: "🥈" },
+  { name: "Gold", price: 440, popular: false, color: "#b8860b", bg: "#fffdf0", features: ["Qiimo dhimis 15%", "Gadiidka bilaash ah", "Baaritaan lama filaan ah", "Xubinnimo gaar ah"], emoji: "🥇" },
+  { name: "Platinum", price: 880, popular: false, color: "#374151", bg: "#0f172a", dark: true, features: ["Qiimo dhimis 25%", "Dhammaan faa'iidooyinka", "Adeeg guri ah", "Tifatiraha gaarka ah"], emoji: "💎" },
+];
+
+const navLinks = [
+  { label: "Hoyga", page: "home" },
+  { label: "Kaabiyaha", page: "supplements" },
+  { label: "Xubinnimada", page: "membership" },
+  { label: "Wellness", page: "wellness" },
+  { label: "Nagu Saabsan", page: "about" },
+];
+
+export default function TeinsAfgooye() {
+  const [page, setPage] = useState("home");
+  const [filter, setFilter] = useState("all");
+  const [notification, setNotification] = useState(null);
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [checkoutProduct, setCheckoutProduct] = useState(null);
+  const [checkoutForm, setCheckoutForm] = useState({ name: "", location: "" });
+  const [checkoutDone, setCheckoutDone] = useState(false);
+
+  // Auto-scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
+  const openCheckout = (product) => {
+    setCheckoutProduct(product);
+    setCheckoutForm({ name: "", location: "" });
+    setCheckoutDone(false);
+  };
+
+  const closeCheckout = () => {
+    setCheckoutProduct(null);
+  };
+
+  const submitCheckout = () => {
+    if (!checkoutForm.name.trim() || !checkoutForm.location.trim()) return;
+    setCheckoutDone(true);
+  };
+
+  const nav = (p) => { setPage(p); setMobileMenu(false); };
+  const displayProducts = filter === "all" ? products : products.filter(p => p.category === filter);
+
+  return (
+    <div style={{ fontFamily: "'Sora', sans-serif", background: "#f8fafc", minHeight: "100vh", color: "#0f172a" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .nav-sticky { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; }
+        .logo { font-weight: 800; font-size: 1.2rem; color: #16a34a; letter-spacing: -0.5px; cursor: pointer; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-link { font-size: 0.9rem; font-weight: 600; color: #64748b; cursor: pointer; transition: 0.2s; }
+        .nav-link:hover, .nav-link.active { color: #16a34a; }
+        
+        .hero { padding: 80px 5% 60px; text-align: center; background: radial-gradient(circle at top right, #dcfce7, transparent), #fff; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1.5px; }
+        .hero span { color: #16a34a; }
+        .hero p { font-size: 1.1rem; color: #475569; max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; padding: 40px 5%; }
+        .card { background: #fff; border-radius: 24px; border: 1px solid #e2e8f0; padding: 12px; transition: 0.3s ease; cursor: pointer; position: relative; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: #bbf7d0; }
+        .card-img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #f1f5f9; border-radius: 18px; padding: 20px; }
+        .card-badge { position: absolute; top: 24px; left: 24px; background: #fff; padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; color: #16a34a; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .card-body { padding: 16px 8px; }
+        .card-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+        .card-price { font-weight: 800; font-size: 1.3rem; color: #0f172a; }
+        
+        .btn-primary { background: #16a34a; color: #fff; border: none; padding: 12px 28px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: #15803d; transform: scale(1.02); }
+        
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .modal { background: #fff; border-radius: 32px; width: 100%; max-width: 480px; padding: 32px; position: relative; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } }
+        
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #475569; }
+        .input-group input { width: 100%; padding: 14px; border: 2px solid #f1f5f9; border-radius: 14px; font-family: inherit; font-size: 1rem; transition: 0.2s; }
+        .input-group input:focus { border-color: #16a34a; outline: none; background: #fff; }
+
+        @media (max-width: 768px) {
+          .nav-links { display: none; }
+          .hero h1 { font-size: 2.2rem; }
+        }
+      `}</style>
+
+      {/* Checkout Modal */}
+      {checkoutProduct && (
+        <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && closeCheckout()}>
+          <div className="modal">
+            <button onClick={closeCheckout} style={{ position: "absolute", top: 24, right: 24, border: "none", background: "#f1f5f9", width: 32, height: 32, borderRadius: "50%", cursor: "pointer" }}>✕</button>
+            
+            {!checkoutDone ? (
+              <>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "8px" }}>Dalbo Hadda</h2>
+                <p style={{ color: "#64748b", marginBottom: "24px" }}>Buuxi macluumaadkaaga si aan kuugu soo dirno <strong>{checkoutProduct.name}</strong></p>
+                
+                <div style={{ display: "flex", gap: "16px", background: "#f8fafc", padding: "16px", borderRadius: "16px", marginBottom: "24px" }}>
+                   {checkoutProduct.img && <img src={checkoutProduct.img} style={{ width: 60, height: 60, objectFit: "contain" }} alt="" />}
+                   <div>
+                     <div style={{ fontWeight: 700 }}>{checkoutProduct.name}</div>
+                     <div style={{ fontWeight: 800, color: "#16a34a" }}>${checkoutProduct.price}</div>
+                   </div>
+                </div>
+
+                <div className="input-group">
+                  <label>Magacaaga Oo Buuxa</label>
+                  <input placeholder="Tusaale: Ahmed Ali" value={checkoutForm.name} onChange={e => setCheckoutForm({...checkoutForm, name: e.target.value})} />
+                </div>
+                <div className="input-group">
+                  <label>Meesha Aad Joogto (Xaafadda/Magaalada)</label>
+                  <input placeholder="Tusaale: Afgooye, Degmada..." value={checkoutForm.location} onChange={e => setCheckoutForm({...checkoutForm, location: e.target.value})} />
+                </div>
+
+                <button className="btn-primary" style={{ width: "100%" }} onClick={submitCheckout} disabled={!checkoutForm.name || !checkoutForm.location}>Xaqiiji Dalabka</button>
+              </>
+            ) : (
+              <div style={{ text-align: "center", padding: "20px 0" }}>
+                <div style={{ fontSize: "4rem", marginBottom: "16px" }}>✅</div>
+                <h2 style={{ fontWeight: 800, marginBottom: "12px" }}>Dalabkaagu Waa Gudbay!</h2>
+                <p style={{ color: "#64748b", marginBottom: "24px", lineHeight: 1.6 }}>Mahadsanid <strong>{checkoutForm.name}</strong>. Fadlan riix badanka hoose si aad noogu soo dirto fariinta WhatsApp-ka ah.</p>
+                <a 
+                  href={`https://wa.me/252611233623?text=Salaan%2C%20waxaan%20rabaa%20in%20aan%20dalbado%3A%20${encodeURIComponent(checkoutProduct.name)}%0AMagaca%3A%20${encodeURIComponent(checkoutForm.name)}%0ALocation%3A%20${encodeURIComponent(checkoutForm.location)}`}
+                  target="_blank" rel="noreferrer"
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="btn-primary" style={{ width: "100%", background: "#25D366" }}>Ku Dhameystir WhatsApp</button>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
-    </nav>
+      )}
 
-    <header class="py-20 px-6 bg-white">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <div class="inline-block bg-emerald-50 text-emerald-700 px-4 py-1 rounded-full text-xs font-bold mb-6 uppercase tracking-wider">Professional Health Partner</div>
-                <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
-                    Bixinta Caafimaad <span class="text-emerald-600">Dhameystiran</span>
-                </h1>
-                <p class="text-gray-500 text-lg mb-10 leading-relaxed">
-                    Teins Company Shop Afgooye waa guri caafimaad oo ixtiraam leh. Waxaan bixinaa alaabta Tiens ee asalka ah si aad ugu daysato nolol fiican.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <button class="bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-700 transition">Alaabta Eeg →</button>
-                    <button class="bg-gray-100 text-gray-700 px-8 py-4 rounded-xl font-bold hover:bg-gray-200 transition">Nagu Saabsan</button>
-                </div>
-            </div>
-            <div class="bg-gray-200 rounded-[2rem] aspect-[4/3] overflow-hidden shadow-2xl">
-                <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold">Sawirka Hero</div>
-            </div>
+      {/* Navigation */}
+      <nav className="nav-sticky">
+        <div className="logo" onClick={() => nav("home")}>TEINS AFGOOYE</div>
+        <div className="nav-links">
+          {navLinks.map(link => (
+            <span key={link.page} className={`nav-link ${page === link.page ? 'active' : ''}`} onClick={() => nav(link.page)}>
+              {link.label}
+            </span>
+          ))}
         </div>
-    </header>
+        <button className="btn-primary" style={{ padding: "8px 20px", fontSize: "0.85rem" }} onClick={() => nav("supplements")}>Adeego</button>
+      </nav>
 
-    <footer class="bg-gray-900 text-white py-16 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-12 border-b border-gray-800 pb-12">
-                <div>
-                    <div class="font-black text-xl mb-4">TEINS COMPANY SHOP AFGOOYE</div>
-                    <p class="text-gray-400 leading-relaxed">Saaxiibkaaga caafimaadka iyo fayo-qabka ee xirfadlaha ah — Professional Health & Wellness Partners.</p>
-                </div>
-                <div>
-                    <div class="font-bold mb-4 uppercase text-sm tracking-widest text-emerald-500">Xiriirka</div>
-                    <ul class="text-gray-400 space-y-2 text-sm">
-                        <li>Contact Afgooye</li>
-                        <li>Shipping Policy</li>
-                        <li>Health Guides</li>
-                        <li>Tiens Global</li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="font-bold mb-4 uppercase text-sm tracking-widest text-emerald-500">Wararka Caafimaadka</div>
-                    <div class="flex gap-2">
-                        <input type="email" placeholder="Email-kaaga" class="bg-gray-800 border-none rounded-lg px-4 py-3 flex-1 text-sm">
-                        <button class="bg-emerald-600 px-4 rounded-lg">→</button>
+      {/* Hero Section */}
+      {page === "home" && (
+        <section className="hero">
+          <div style={{ background: "#f0fdf4", color: "#16a34a", padding: "6px 16px", borderRadius: "100px", display: "inline-block", fontWeight: 700, fontSize: "0.8rem", marginBottom: "20px" }}>
+            🌱 TIENS ORIGINAL PRODUCTS
+          </div>
+          <h1>Noloshaada Ku Bilow <span>Caafimaad.</span></h1>
+          <p>Kaabeyaasha caafimaadka ee Tiens waxay ku siinayaan awood, difaac, iyo nolol firfircoon. Dhammaan alaabtayadu waa 100% asali.</p>
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+            <button className="btn-primary" onClick={() => nav("supplements")}>Eeg Alaabta →</button>
+            <button style={{ background: "#fff", border: "2px solid #e2e8f0", padding: "12px 28px", borderRadius: "14px", fontWeight: 700, cursor: "pointer" }} onClick={() => nav("about")}>Nagu Saabsan</button>
+          </div>
+        </section>
+      )}
+
+      {/* Page Content */}
+      <div style={{ padding: "40px 5%" }}>
+        {page === "home" && (
+          <>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "32px" }}>
+              <div>
+                <h2 style={{ fontSize: "1.8rem", fontWeight: 800 }}>Alaabta Ugu Caansan</h2>
+                <p style={{ color: "#64748b" }}>Dooro kuwa ugu iibsiga badan</p>
+              </div>
+              <button style={{ color: "#16a34a", fontWeight: 700, background: "none", border: "none", cursor: "pointer" }} onClick={() => nav("supplements")}>Eeg dhamaan →</button>
+            </div>
+            <div className="grid" style={{ padding: "0" }}>
+              {products.slice(0, 4).map(p => (
+                <div key={p.id} className="card" onClick={() => openCheckout(p)}>
+                  <img src={p.img} className="card-img" alt={p.name} />
+                  <span className="card-badge">{p.badge}</span>
+                  <div className="card-body">
+                    <div className="card-title">{p.name}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div className="card-price">${p.price}</div>
+                      <button className="btn-primary" style={{ padding: "8px 16px", fontSize: "0.8rem" }}>Dalbo</button>
                     </div>
+                  </div>
                 </div>
+              ))}
             </div>
-            <div class="text-center text-gray-500 text-xs">
-                © 2024 TEINS COMPANY SHOP AFGOOYE. Professional Health & Wellness Partners.
-            </div>
-        </div>
-    </footer>
+          </>
+        )}
 
-</body>
-</html>
+        {(page === "supplements" || page === "wellness") && (
+          <>
+            <h1 style={{ fontSize: "2.5rem", fontWeight: 800, marginBottom: "8px" }}>{page === "supplements" ? "Kaabeyaasha" : "Wellness"}</h1>
+            <p style={{ color: "#64748b", marginBottom: "40px" }}>Dhammaan alaabta Tiens ee aad u baahan tahay hal meel.</p>
+            <div className="grid" style={{ padding: "0" }}>
+              {products.filter(p => page === "all" || p.category === (page === "supplements" ? "supplements" : "wellness")).map(p => (
+                <div key={p.id} className="card" onClick={() => openCheckout(p)}>
+                  <img src={p.img} className="card-img" alt={p.name} />
+                  <span className="card-badge">{p.badge}</span>
+                  <div className="card-body">
+                    <div className="card-title">{p.name}</div>
+                    <p style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "16px", lineHeight: "1.5" }}>{p.desc}</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div className="card-price">${p.price}</div>
+                      <button className="btn-primary">Dalbo</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {page === "membership" && (
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+             <h1 style={{ fontSize: "2.5rem", fontWeight: 800, textAlign: "center", marginBottom: "40px" }}>Noqo Xubin <span>Faa'iido</span> Hel.</h1>
+             <div className="grid" style={{ padding: 0 }}>
+                {membershipPlans.map(plan => (
+                  <div key={plan.name} className="card" style={{ padding: "32px", border: plan.popular ? "2px solid #16a34a" : "1px solid #e2e8f0" }}>
+                    {plan.popular && <span style={{ background: "#16a34a", color: "#fff", padding: "4px 12px", borderRadius: "100px", fontSize: "0.7rem", fontWeight: 800, position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)" }}>Ugu Caansan</span>}
+                    <div style={{ fontSize: "3rem", marginBottom: "16px" }}>{plan.emoji}</div>
+                    <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "8px" }}>{plan.name}</h3>
+                    <div style={{ fontSize: "2rem", fontWeight: 800, marginBottom: "24px" }}>${plan.price}</div>
+                    <ul style={{ listStyle: "none", marginBottom: "32px" }}>
+                      {plan.features.map(f => <li key={f} style={{ marginBottom: "12px", fontSize: "0.9rem", color: "#475569" }}>✅ {f}</li>)}
+                    </ul>
+                    <button className="btn-primary" style={{ width: "100%" }} onClick={() => openCheckout({ name: `Xubinnimada ${plan.name}`, price: plan.price })}>Ku Biir</button>
+                  </div>
+                ))}
+             </div>
+          </div>
+        )}
+
+        {page === "about" && (
+          <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+            <img src={IMG_ABOUTIMG} style={{ width: "100%", borderRadius: "32px", marginBottom: "40px" }} alt="About" />
+            <h1 style={{ fontWeight: 800, fontSize: "2.5rem", marginBottom: "24px" }}>Ku Saabsan Tiens Afgooye</h1>
+            <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "#475569" }}>
+              Waxaan nahay xarun ku taalla Afgooye oo u heellan inay bulshada Soomaaliyeed gaarsiiso nafaqada iyo kaabeyaasha caafimaad ee ugu tayada sarreeya adduunka. Shirkadda Tiens waa shirkad caalami ah, waxaana u taaganahay inaan kugu caawinno sidii aad u heli lahayd nolol caafimaad leh.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer style={{ background: "#0f172a", color: "#f1f5f9", padding: "60px 5%", marginTop: "80px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "40px" }}>
+          <div>
+            <div className="logo" style={{ color: "#fff", marginBottom: "20px" }}>TEINS AFGOOYE</div>
+            <p style={{ color: "#94a3b8", fontSize: "0.9rem", lineHeight: 1.6 }}>Waa saaxiibkaaga caafimaadka ee Afgooye. Waxaan bixinaa alaab dabiici ah oo tayo leh.</p>
+          </div>
+          <div>
+            <h4 style={{ marginBottom: "20px" }}>Xiriirka</h4>
+            <p style={{ color: "#94a3b8", fontSize: "0.9rem" }}>📍 Afgooye, Sh/Hoose</p>
+            <p style={{ color: "#94a3b8", fontSize: "0.9rem", marginTop: "10px" }}>📞 +252 61 123 3623</p>
+          </div>
+          <div>
+            <h4 style={{ marginBottom: "20px" }}>Adeegyada</h4>
+            {navLinks.map(l => <div key={l.page} style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "8px", cursor: "pointer" }} onClick={() => nav(l.page)}>{l.label}</div>)}
+          </div>
+        </div>
+        <div style={{ borderTop: "1px solid #1e293b", marginTop: "40px", paddingTop: "20px", textAlign: "center", fontSize: "0.8rem", color: "#64748b" }}>
+          © 2024 Teins Company Shop Afgooye. All Rights Reserved.
+        </div>
+      </footer>
+    </div>
+  );
+}
+
