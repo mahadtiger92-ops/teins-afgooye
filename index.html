@@ -6,36 +6,95 @@
     <meta name="google-site-verification" content="CC-RCpjy-o9Ck9xxye5ggKPKcIdCvOy0YXffV_Oa1ZE" />
     <title>Tiens Afgooye - Official Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+<body class="bg-[#0f172a] text-white font-sans">
+    <nav class="bg-white text-slate-900 shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <span class="font-bold text-emerald-700 text-xl">TIENS AFGOOYE</span>
-            <div class="space-x-4 font-bold text-xs uppercase tracking-widest">
-                <a href="#">HOYGA</a>
-                <a href="#products">ALAABTA</a>
+            <span class="font-black text-emerald-700 text-2xl tracking-tighter">TIENS AFGOOYE</span>
+            <div class="flex items-center space-x-6">
+                <i class="fa-solid fa-cart-shopping text-xl"></i>
+                <i class="fa-solid fa-bars text-xl"></i>
             </div>
         </div>
     </nav>
 
-    <main class="pt-20 px-6 text-center">
-        <h1 class="text-4xl font-black mb-4 uppercase tracking-tighter italic">Coming Soon</h1>
-        <p class="text-slate-600 mb-10 max-w-lg mx-auto leading-relaxed">
-            Ku soo dhowaada Tiens Afgooye. Website-keena rasmiga ah waa uu dhismaayaa. Dhawaan ayaad ka heli doontaan alaabaha ugu tayada fiican.
+    <header class="py-20 px-6 text-center bg-gradient-to-b from-[#1e293b] to-[#0f172a]">
+        <div class="inline-block bg-emerald-900/30 text-emerald-400 px-4 py-1 rounded-full text-sm font-bold mb-6 border border-emerald-800">
+            🌿 Tiens Original • Afgooye
+        </div>
+        <h1 class="text-5xl font-black mb-4 leading-tight">Nafaqo tayo sare leh.<br><span class="text-emerald-500">Caafimaad dhab ah.</span></h1>
+        <p class="text-slate-400 mb-10 max-w-xl mx-auto text-lg">
+            Ku soo dhowow Tiens Afgooye. Waxaan ku takhasusay kaabista caafimaadka ee asalka ah si aad u gasho nolosha fiican.
         </p>
-        
-        <div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                <div class="aspect-square bg-slate-100 rounded-lg mb-4 flex items-center justify-center text-slate-400">
-                    Sawirka Alaabta
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#products" class="bg-emerald-600 hover:bg-emerald-500 px-8 py-4 rounded-xl font-bold text-lg transition">Alaabta Eeg →</a>
+            <a href="#" class="bg-slate-800 hover:bg-slate-700 px-8 py-4 rounded-xl font-bold text-lg transition">Xubinnimada</a>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-6 py-12 border-y border-slate-800">
+        <div class="text-center">
+            <p class="text-3xl font-black text-white">500+</p>
+            <p class="text-slate-500 text-sm">Macaamiil</p>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-black text-white">8+</p>
+            <p class="text-slate-500 text-sm">Alaabood</p>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-black text-white">100%</p>
+            <p class="text-slate-500 text-sm">Asali ah</p>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-black text-white">4</p>
+            <p class="text-slate-500 text-sm">Xirmo</p>
+        </div>
+    </div>
+
+    <section id="products" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Alaabta ugu Fiican</h2>
+                <p class="text-slate-500">Kaabiyaha caafimaadka ee Tiens</p>
+            </div>
+            <button class="text-emerald-500 font-bold">Dhammaan →</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-3xl p-6 text-slate-900 relative">
+                <span class="absolute top-4 left-4 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">Immune Support</span>
+                <div class="aspect-square mb-6 flex items-center justify-center">
+                   <img src="https://www.tiens.com/upload/202105/25/202105251522365442.png" alt="Tiens" class="max-h-full">
                 </div>
-                <h3 class="font-bold mb-1">Alaabta Koowaad</h3>
-                <p class="text-emerald-600 font-black">$25.00</p>
+                <h3 class="font-bold text-xl mb-1">Tiens Cordyceps</h3>
+                <p class="text-slate-500 text-sm mb-4">Kaabista difaaca jirka</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-2xl font-black text-emerald-700">$45.00</p>
+                    <button class="bg-slate-900 text-white p-3 rounded-xl hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 text-slate-900 relative">
+                <span class="absolute top-4 left-4 bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">Immunity</span>
+                <div class="aspect-square mb-6 flex items-center justify-center">
+                   <img src="https://www.tiens.com/upload/202105/25/202105251523456891.png" alt="Tiens" class="max-h-full">
+                </div>
+                <h3 class="font-bold text-xl mb-1">Tianshi Zinc</h3>
+                <p class="text-slate-500 text-sm mb-4">Kobcinta koritaanka</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-2xl font-black text-emerald-700">$25.00</p>
+                    <button class="bg-slate-900 text-white p-3 rounded-xl hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="mt-20 py-10 border-t border-slate-200 text-center text-slate-400 text-xs">
+    <footer class="py-10 border-t border-slate-800 text-center text-slate-500 text-sm">
         <p>&copy; 2026 TIENS AFGOOYE. Xuquuqda way dhowran tahay.</p>
     </footer>
 </body>
