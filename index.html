@@ -1,63 +1,82 @@
-<div style={{ fontWeight: 700, color: "#111827", marginBottom: 6, fontSize: 14 }}>{b.title}</div>
-                    <div style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6 }}>{b.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="CC-RCpjy-o9Ck9xxye5ggKPKcIdCvOy0YXffV_Oa1ZE" />
+    <title>Teins Company Shop Afgooye</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
 
-      {page === "about" && (
-        <>
-          <div className="page-hero">
-            <div className="breadcrumb" onClick={() => nav("home")}>← Hoyga / Nagu Saabsan</div>
-            <h1>Nagu Saabsan</h1>
-            <p>Waxaan u taaganahay caafimaadkaaga iyo horumarka nolosha qoyskaaga.</p>
-          </div>
-          <div className="section-wrap">
-            <div className="about-grid">
-              <div className="about-img-box" style={{ padding: 0, overflow: "hidden" }}>
-                <img src={IMG_ABOUTIMG} alt="About" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-              <div className="about-content">
-                <h2>Bixinta Caafimaad Dhameystiran</h2>
-                <p>Teins Company Shop Afgooye waa guri caafimaad oo ixtiraam leh ee ku yaal magaalada Afgooye. Waxaan bixinaa alaabta Tiens ee asalka ah si aad ugu daysato nolol fiican.</p>
-                <div className="about-highlight">"Saaxiibkaaga caafimaadka iyo fayo-qabka ee xirfadlaha ah — waxaan bixinaa alaab tayo sare leh."</div>
-                <p>Kooxdeena xirfadlayaasha ah ayaa kuu diyaar ah inay ka jawaabaan su'aalahaaga caafimaadka.</p>
-                <button className="btn-green">Nala Xiriir →</button>
-              </div>
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="font-black text-emerald-700 text-xl leading-none uppercase">
+                Teins Company<br><span class="text-gray-900 text-sm">Shop Afgooye</span>
             </div>
-          </div>
-        </>
-      )}
-
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-grid">
-            <div>
-              <div className="footer-logo">TEINS COMPANY SHOP AFGOOYE</div>
-              <p className="footer-desc">Saaxiibkaaga caafimaadka iyo fayo-qabka ee xirfadlaha ah — Professional Health & Wellness Partners.</p>
+            <div class="hidden md:flex space-x-8 font-semibold text-sm text-gray-600">
+                <a href="#" class="hover:text-emerald-600">Hoyga</a>
+                <a href="#" class="hover:text-emerald-600">Alaabta</a>
+                <a href="#" class="hover:text-emerald-600">Nagu Saabsan</a>
             </div>
-            <div>
-              <div className="footer-heading">Xiriirka</div>
-              {["Contact Afgooye", "Shipping Policy", "Health Guides", "Tiens Global"].map(l => (
-                <span key={l} className="footer-link">{l}</span>
-              ))}
-            </div>
-            <div>
-              <div className="footer-heading">Wararka Caafimaadka</div>
-              <div className="footer-email-row">
-                <input className="footer-email-input" placeholder="Email-kaaga" type="email" />
-                <button className="footer-email-btn">→</button>
-              </div>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>© 2024 TEINS COMPANY SHOP AFGOOYE. Professional Health & Wellness Partners.</p>
-          </div>
+            <button class="bg-emerald-600 text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-emerald-700 transition">Nala Xiriir</button>
         </div>
-      </footer>
-    </div>
-  );
-}
+    </nav>
+
+    <header class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-block bg-emerald-50 text-emerald-700 px-4 py-1 rounded-full text-xs font-bold mb-6 uppercase tracking-wider">Professional Health Partner</div>
+                <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
+                    Bixinta Caafimaad <span class="text-emerald-600">Dhameystiran</span>
+                </h1>
+                <p class="text-gray-500 text-lg mb-10 leading-relaxed">
+                    Teins Company Shop Afgooye waa guri caafimaad oo ixtiraam leh. Waxaan bixinaa alaabta Tiens ee asalka ah si aad ugu daysato nolol fiican.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-700 transition">Alaabta Eeg →</button>
+                    <button class="bg-gray-100 text-gray-700 px-8 py-4 rounded-xl font-bold hover:bg-gray-200 transition">Nagu Saabsan</button>
+                </div>
+            </div>
+            <div class="bg-gray-200 rounded-[2rem] aspect-[4/3] overflow-hidden shadow-2xl">
+                <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold">Sawirka Hero</div>
+            </div>
+        </div>
+    </header>
+
+    <footer class="bg-gray-900 text-white py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 mb-12 border-b border-gray-800 pb-12">
+                <div>
+                    <div class="font-black text-xl mb-4">TEINS COMPANY SHOP AFGOOYE</div>
+                    <p class="text-gray-400 leading-relaxed">Saaxiibkaaga caafimaadka iyo fayo-qabka ee xirfadlaha ah — Professional Health & Wellness Partners.</p>
+                </div>
+                <div>
+                    <div class="font-bold mb-4 uppercase text-sm tracking-widest text-emerald-500">Xiriirka</div>
+                    <ul class="text-gray-400 space-y-2 text-sm">
+                        <li>Contact Afgooye</li>
+                        <li>Shipping Policy</li>
+                        <li>Health Guides</li>
+                        <li>Tiens Global</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-bold mb-4 uppercase text-sm tracking-widest text-emerald-500">Wararka Caafimaadka</div>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email-kaaga" class="bg-gray-800 border-none rounded-lg px-4 py-3 flex-1 text-sm">
+                        <button class="bg-emerald-600 px-4 rounded-lg">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 text-xs">
+                © 2024 TEINS COMPANY SHOP AFGOOYE. Professional Health & Wellness Partners.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
